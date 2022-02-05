@@ -12,14 +12,26 @@ function commandRobot (instanceTable = new Table(), command = '') {
         return instanceTable.robotPlace(x,y,facing)
       }
     } else if (command === 'MOVE') {
+    
       return instanceTable.robotMove()
+    
     } else if (command === 'LEFT') {
+    
       return instanceTable.robotLeft()
+    
     } else if (command === 'RIGHT') {
+    
       return instanceTable.robotRight()
+    
     } else if (command === 'REPORT') {
+    
       const response = instanceTable.robotReport()
-      return `--| Active: ${response.active} | Total Robots: ${response.number_robots} | (${response.x},${response.y}) - ${response.facing} |--`
+      console.log(response)
+      if (typeof response === 'object') {
+        return `Active: ${response.active} | Total Robots: ${response.number_robots} | (${response.x},${response.y}) - ${response.facing}`
+      }
+      return response
+
     } else if (command.includes('ROBOT')) {
       let rex_robot = /^ROBOT\s(\d{1,3})$/
       const match = command.match(rex_robot)

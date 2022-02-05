@@ -40,28 +40,40 @@ class Table {
   }
 
   robotMove = () => {
-    const response = this.robots[this.index].move(this.locationsUsed)
-    if (response) {
-      this.locationsUsed[this.index] = [this.robots[this.index].x, this.robots[this.index].y]
+    if (this.robots.length) {
+      const response = this.robots[this.index].move(this.locationsUsed)
+      if (response) {
+        this.locationsUsed[this.index] = [this.robots[this.index].x, this.robots[this.index].y]
+      }
+      return response;
     }
-    return response;
+    return false;
   }
 
   robotLeft = () => {
-    return this.robots[this.index].left()
+    if (this.robots.length) {
+      return this.robots[this.index].left()
+    }
+    return false
   }
 
   robotRight = () => {
-    return this.robots[this.index].right()
+    if (this.robots.length) {
+      return this.robots[this.index].right()
+    }
+    return false
   }
 
   robotReport = () => {
-    const response = this.robots[this.index].report()
-    return {
-      number_robots: this.robots.length,
-      active: this.robots[this.index].name,
-      ...response
+    if (this.robots.length) {
+      const response = this.robots[this.index].report()
+      return {
+        number_robots: this.robots.length,
+        active: this.robots[this.index].name,
+        ...response
+      }
     }
+    return false
   }
 }
 
